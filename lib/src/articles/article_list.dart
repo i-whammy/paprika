@@ -11,7 +11,16 @@ import 'package:paprika/src/articles/article.dart';
   </ul>
   ''',
   directives: [coreDirectives],
+  providers: [ClassProvider(ArticleDriver), ClassProvider(ArticleGateway), ClassProvider(ArticleService)]
 )
-class ArticleList {
-  List<Article> articles = [Article(1, 'hoge'), Article(2, 'fuga')];
+class ArticleList implements OnInit {
+  final ArticleService _service;
+  ArticleList(this._service);
+
+  List<Article> articles;
+
+  @override
+  void ngOnInit() {
+    articles = _service.getAll();
+  }
 }
